@@ -17,6 +17,16 @@ for (const group of recipeGroups) {
  recipeGroupDiv.append(recipeGroupH2);
  recipeGroupDiv.append(recipeGroupShow);
  recipeGroupDiv.append(recipeGroupUl);
+ recipeGroupUl.hidden = true;
+ recipeGroupShow.addEventListener("click", function () {
+  if (recipeGroupUl.hidden) {
+    recipeGroupUl.hidden = false;
+    recipeGroupShow.textContent = "Hide All";
+  } else {
+    recipeGroupUl.hidden = true;
+    recipeGroupShow.textContent = "Show More";
+  }
+ });
   for (const recipe of group.recipes) {
   const recipeItem = document.createElement("li");
   const recipeShow = document.createElement("button");
