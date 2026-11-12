@@ -8,10 +8,12 @@ const recipeGroups = [
 const recipeGroupList = document.querySelector(".recipe-groups");
 for (const group of recipeGroups) {
  const recipeGroupDiv = document.createElement("div");
+ const recipeGroupH2 = document.createElement("h2");
  const recipeGroupUl = document.createElement("ul");
- recipeGroupDiv.textContent = group.group;
- recipeGroupDiv.append(recipeGroupUl);
+ recipeGroupH2.textContent = group.group;
  recipeGroupList.append(recipeGroupDiv);
+ recipeGroupDiv.append(recipeGroupH2);
+ recipeGroupDiv.append(recipeGroupUl);
   for (const recipe of group.recipes) {
   const recipeItem = document.createElement("li");
   recipeItem.textContent = recipe;
