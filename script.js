@@ -5,16 +5,16 @@ const recipeGroups = [
   { group: "Steak and Eggs", recipes: [ "Marinated Steak", "Whole Eggs", "Hashbrowns"]},
   { group: "Sides", recipes: [ "Pancakes", "Toast", "Hashbrowns", "Bacon", "Sausage"]},
 ];
-const groupList = document.querySelector(".recipe-groups");
+const recipeGroupList = document.querySelector(".recipe-groups");
 for (const group of recipeGroups) {
- const groupDiv = document.createElement("div");
- const recipeUl = document.createElement("ul");
- groupDiv.textContent = group.group;
- groupDiv.append(recipeUl)
- groupList.append(groupDiv);
+ const recipeGroupDiv = document.createElement("div");
+ const recipeGroupUl = document.createElement("ul");
+ recipeGroupDiv.textContent = group.group;
+ recipeGroupDiv.append(recipeGroupUl);
+ recipeGroupList.append(recipeGroupDiv);
   for (const recipe of group.recipes) {
   const recipeItem = document.createElement("li");
   recipeItem.textContent = recipe;
-  recipeUl.append(recipeItem);
+  recipeGroupUl.append(recipeItem);
 }
- };
+};
