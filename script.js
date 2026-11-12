@@ -19,7 +19,10 @@ for (const group of recipeGroups) {
  recipeGroupDiv.append(recipeGroupUl);
   for (const recipe of group.recipes) {
   const recipeItem = document.createElement("li");
+  const recipeShow = document.createElement("button");
   recipeItem.textContent = recipe;
+  recipeShow.textContent = "Show More";
   recipeGroupUl.append(recipeItem);
+  recipeItem.append(recipeShow);
  }
 };
