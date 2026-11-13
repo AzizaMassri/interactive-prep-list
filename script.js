@@ -190,16 +190,16 @@ for (const group of recipeGroups) {
     recipeGroupShow.textContent = "Show More";
   }
  });
-  
   for (const recipe of group.recipes) {
   const recipeItem = document.createElement("li");
+  const recipeName = document.createElement("h3");
   const recipeShow = document.createElement("button");
   const recipeDiv = document.createElement("div");
   const recipeYield = document.createElement("p");
   const recipeCompleted = document.createElement("input");
   recipeCompleted.type = "checkbox";
   const recipeIngredients = document.createElement("ul");
-  recipeItem.textContent = recipe.recipe;
+  recipeName.textContent = recipe.recipe;
   recipeShow.textContent = "Details";
   recipeYield.textContent = recipe.yield;
     for (const ingredient of recipe.ingredients) {
@@ -207,8 +207,8 @@ for (const group of recipeGroups) {
       recipeIngredients.append(ingredientList);
       ingredientList.append(`${ingredient.name} -- ${ingredient.quantity} -- ${ingredient.unit}`);
     }
-    
   recipeGroupUl.append(recipeItem);
+  recipeItem.append(recipeName);
   recipeItem.append(recipeShow);
   recipeItem.append(recipeDiv);
   recipeDiv.append(recipeYield);
@@ -220,7 +220,7 @@ for (const group of recipeGroups) {
     recipeShow.textContent = "Hide";
   } else {
     recipeDiv.hidden = true;
-    recipeShow.textContent = "Display";
+    recipeShow.textContent = "Details";
   }
 });
 }
