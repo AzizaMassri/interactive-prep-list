@@ -206,13 +206,23 @@ for (const group of recipeGroups) {
       const ingredientList = document.createElement("li");
       recipeIngredients.append(ingredientList);
       ingredientList.append(`${ingredient.name} -- ${ingredient.quantity} -- ${ingredient.unit}`);
-  
     }
+    
   recipeGroupUl.append(recipeItem);
   recipeItem.append(recipeShow);
   recipeItem.append(recipeDiv);
   recipeDiv.append(recipeYield);
   recipeDiv.append(recipeIngredients);
-
+  recipeDiv.hidden = true;
+  recipeShow.addEventListener("click", function () {
+  if (recipeDiv.hidden) {
+    recipeDiv.hidden = false;
+    recipeShow.textContent = "Hide";
+  } else {
+    recipeDiv.hidden = true;
+    recipeShow.textContent = "Display";
+  }
+});
 }
-};
+}
+
