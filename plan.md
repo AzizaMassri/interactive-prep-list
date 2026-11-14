@@ -27,7 +27,7 @@ Berry Pancakes group, completed: true collapsed: false -  group and sub recipes 
 
 
 Pseudocode:
-
+```
 FOR main body
   DISPLAY completion tracker
   
@@ -58,4 +58,4 @@ FOR main body
 
 	WHEN recipe checkbox changes AND recipe is complete
                   ADD to recipe complete counter
-	      ADD to to overall complete counter
+	      ADD to to overall complete counter```
