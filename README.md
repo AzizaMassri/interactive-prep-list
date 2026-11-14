@@ -10,7 +10,7 @@ This tool helps reduce any confusion on what needs prepped for a day's service a
 
 You need nothing installed.
 
-1. Open the [live page]([https://azizamassri.github.io/interactive-prep-list/]).
+1. Open the [live page](https://azizamassri.github.io/interactive-prep-list/).
 2. When the page opens you see a page title, a completion counter and recipe groups with show more buttons by default.
    When you expand a recipe group you will see the recipes needed to complete the recipe group 
    Individual recipes then expand with a details button to show recipe yield, ingredients, quantities and their checkbox 
