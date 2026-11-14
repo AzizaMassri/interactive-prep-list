@@ -215,6 +215,7 @@ for (const group of recipeGroups) {
   totalRecipes += group.recipes.length;
 };
 const counterText = document.createElement("p");
+counterText.classList.add("counter-text");
 counterText.textContent = `${totalCounter}/${totalRecipes} recipes completed`;
 recipeGroupList.append(counterText);
 for (const group of recipeGroups) {
@@ -256,10 +257,10 @@ for (const group of recipeGroups) {
     recipeYield.classList.add("yield");
     const recipeIngredients = document.createElement("ul");
     recipeIngredients.classList.add("recipe-ul");
+    const recipeComplete = document.createElement("label");
+    recipeComplete.textContent = "Done";
     const recipeCheckbox = document.createElement("input");
     recipeCheckbox.type = "checkbox";
-    const recipeComplete = document.createElement("label");
-    recipeComplete.textContent = "Done"
     recipeName.textContent = recipe.recipe;
     recipeShow.textContent = "Details";
     recipeYield.textContent = recipe.yield;
@@ -275,8 +276,8 @@ for (const group of recipeGroups) {
     recipeItem.append(recipeDiv);
     recipeDiv.append(recipeYield);
     recipeDiv.append(recipeIngredients);
-    recipeDiv.append(recipeCheckbox);
     recipeDiv.append(recipeComplete);
+    recipeDiv.append(recipeCheckbox);
     recipeDiv.hidden = true;
     recipeShow.addEventListener("click", function () {
       if (recipeDiv.hidden) {
