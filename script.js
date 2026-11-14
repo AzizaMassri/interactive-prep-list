@@ -222,7 +222,7 @@ for (const group of recipeGroups) {
   const recipeGroupH2 = document.createElement("h2");
   const recipeGroupShow = document.createElement("button");
   const recipeGroupUl = document.createElement("ul");
-  let recipeGroupCompleteCounter = 0;
+  let recipeCompleteCounter = 0;
   recipeGroupH2.textContent = group.group;
   recipeGroupShow.textContent = "Show More";
   recipeGroupList.append(recipeGroupDiv);
@@ -249,7 +249,6 @@ for (const group of recipeGroups) {
     const recipeCheckbox = document.createElement("input");
     recipeCheckbox.type = "checkbox";
     const recipeComplete = document.createElement("label");
-    let recipeCompleteCounter = 0;
     recipeComplete.textContent = "Done"
     recipeName.textContent = recipe.recipe;
     recipeShow.textContent = "Details";
@@ -268,8 +267,6 @@ for (const group of recipeGroups) {
     recipeDiv.append(recipeCheckbox);
     recipeDiv.append(recipeComplete);
     recipeDiv.hidden = true;
-    recipeCheckbox.hidden = false;
-    recipeComplete.hidden = false;
     recipeShow.addEventListener("click", function () {
       if (recipeDiv.hidden) {
         recipeDiv.hidden = false;
@@ -289,17 +286,14 @@ for (const group of recipeGroups) {
         recipeYield.hidden = true;
         recipeCheckbox.hidden = true;
         recipeComplete.style.fontWeight = "bold";
-        recipeGroupCompleteCounter = recipeGroupCompleteCounter + 1;
+        recipeCompleteCounter = recipeCompleteCounter + 1;
         totalCounter = totalCounter + 1;
         counterText.textContent = `${totalCounter}/${totalRecipes} recipes completed`;
-      } else {
-        recipeIngredients.hidden = false;
       }
-      if (recipeGroupCompleteCounter === group.recipes.length) {
+      if (recipeCompleteCounter === group.recipes.length) {
         recipeGroupH2.style.color = "#888888";
       }
 
     })
   }
 }
-
