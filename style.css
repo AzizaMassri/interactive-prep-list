@@ -25,6 +25,9 @@ margin-bottom: 16px;
 background-color: #FFFFF0;
 box-shadow: 0 1px 3px #888888;
 }
+.recipe-group-ul {
+list-style-type: none;
+}
 .button {
 border-radius: 5px;
 border: 1px solid #888888;
@@ -37,4 +40,9 @@ font-weight: bold;
 }
 .ingredient-li {
 padding-bottom: 8px;
+list-style-type: disc;
+}
+label {
+  padding-right: 4px;
+  font-weight: bold;
 }
