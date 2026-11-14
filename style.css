@@ -1,3 +1,38 @@
 body {
-  font-family: Verdana, sans-serif;
+font-family: Verdana, sans-serif;
+background-color: #FFFFFF;
+}
+h1 {
+display: flex;
+justify-content: center;
+padding-top: 16px;
+}
+.counter-text {
+display: flex;
+justify-content: center;
+padding-bottom: 16px;
+font-weight: bold;
+border-bottom: 3px solid #c81E3A;
+}
+h1, h2 {
+color: #C81E3A;
+}
+div {
+padding: 8px 8px;
+}
+.recipe-group-div {
+margin-bottom: 16px;
+background-color: #FFFFF0;
+box-shadow: 0 1px 3px #888888;
+}
+.button {
+border-radius: 5px;
+border: 1px solid #888888;
+background-color: #FFFFFF;
+}
+.yield {
+font-weight: bold;
+}
+.ingredient-li {
+padding-bottom: 8px;
 }
