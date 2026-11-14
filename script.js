@@ -238,8 +238,13 @@ for (const group of recipeGroups) {
       recipeShow.hidden = true;
       recipeYield.hidden = true;
       recipeCheckbox.hidden = true;
+      recipeComplete.style.fontWeight = "bold";
+      recipeGroupCompleteCounter = recipeGroupCompleteCounter + 1;
     } else {
       recipeIngredients.hidden = false;
+    }
+    if (recipeGroupCompleteCounter === group.recipes.length) {
+      recipeGroupH2.style.color = "#888888";
     }
     
   })
