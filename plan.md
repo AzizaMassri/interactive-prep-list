@@ -12,16 +12,16 @@ Should it track completed recipes?
 
 The request: I need a daily prep list that can tell kitchen employees what recipes to prep for the day.
 Questions to ask (with the answers) see questions above. Answers: Yes, Yes, Yes, No, No, Yes, Yes
-Inputs: Recipe, Ingredients, Quantities, and Completed (check box)
-Steps: Retrieve recipe groups, recipes will be displayed in a predetermined order in their groups, allow employees to expand an incomplete recipe for ingredients, quantities and yield, allow employees to mark a recipe complete, update the recipe’s completion status with the checkbox, which hides the recipe’s details button, details and checkbox and adds one to the recipes completed counter. When all recipes in a group are completed the group name is greyed out.
-Outputs: A title. A total recipe completion counter. Recipe groups with a Show More button that displays their sub-recipes when expanded. A Show More button next to each sub-recipe name, and a checkbox under each incomplete sub-recipe to mark it complete. Completed recipes appear greyed out with hidden details button and hidden details. Counter increase by one when each recipe is complete.Completed recipe groups greyed out and remain expandable. 
+Inputs: Static data (nested array), DOM events, Show more/Hide all button, Details/hide button
+Steps: Retrieve recipe groups, display recipe groups with a show more button to expand their recipes in a predetermined order, allow employees to expand an incomplete recipe for yield ingredients and quantities, allow employees to mark a recipe complete, update the recipe’s completion status with the checkbox, which hides the recipe’s details button, details and checkbox, greys out the recipe, and adds one to the recipes completed counter. When all recipes in a group are completed the group name is greyed out but can still be expanded to show the individual recipes.
+Outputs: Static HTML title, recipe completion counter, expanded/collapsed lists, auto-hidden details, greyed-out text styling, 
 Test cases (input row, expected result, why):
 
 
-Pancake Batter, complete: no collapsed: false -  displays recipe name, hide, yield, ingredients, quantities and a check box.
-Whipped topping, complete: no, checkbox checked: yes - it would be greyed out, no checkbox, cannot be expanded, and the overall completion counter increases by one.
-Toasted English muffins: complete: false -  collapsed: true. displays recipe name and show more button 
-Berry Pancakes group, completed: true collapsed: false -  group and sub recipes remain but are greyed out, sub recipes cannot be expanded but the recipe group can be expanded to show the sub recipes but not their details. Show more button changes to Hide all.
+Pancake Batter, complete: no collapsed: false -  displays individual recipe name, hide button, yield, ingredients, quantities and a check box because the recipe hasn't been completed and the details button has been clicked.
+Whipped topping, complete: no, checkbox checked: yes - it would be greyed out, no checkbox, can no longer be expanded, and the overall completion counter increases by one because the recipe is marked complete.
+Toasted English muffins: complete: false -  collapsed: true. displays recipe name and details button because the recipe has not been expanded and has not been completed.
+Berry Pancakes group, completed: true collapsed: false -  group and sub recipes remain but are greyed out, sub recipes cannot be expanded but the recipe group can be expanded to show the sub recipes and the word done. Show more button changes to Hide all. This happens because the group is completed and expanded.
 
 
 
@@ -35,27 +35,27 @@ FOR main body
     DISPLAY group name
     DISPLAY group show more button
 
-        IF recipe group is expanded
-          DISPLAY sub recipe list
+    IF recipe group is expanded
+      DISPLAY sub recipe list
 
-            IF recipe group is complete
-               GREY out group name
+      IF recipe group is complete
+        GREY out group name
         
-          FOR EACH recipe in group
-            DISPLAY recipe name
+      FOR EACH recipe in group
+        DISPLAY recipe name
 
-            IF recipe is complete
-              GREY out name
-              HIDE yield ingredients quantities and checkbox
+        IF recipe is complete
+          GREY out name
+          HIDE yield ingredients quantities and checkbox
 
-            ELSE
+        ELSE
 
-              DISPLAY recipe show more button
+          DISPLAY recipe show more button
 
-              IF recipe is expanded
-                DISPLAY yield, ingredients, quantities
-                DISPLAY checkbox
+          IF recipe is expanded
+            DISPLAY yield, ingredients, quantities
+            DISPLAY checkbox
 
-	WHEN recipe checkbox changes AND recipe is complete
-                  ADD to recipe complete counter
-	      ADD to to overall complete counter```
+          WHEN recipe checkbox changes AND recipe is complete
+            ADD to recipe complete counter
+            ADD to to overall complete counter```
