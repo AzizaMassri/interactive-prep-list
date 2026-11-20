@@ -102,6 +102,7 @@ for (const group of recipeGroups) {
         recipeShow.hidden = true;
         recipeYield.hidden = true;
         recipeCheckbox.hidden = true;
+          recipeComplete.style.fontWeight = "bold";
         recipeCompleteCounter = recipeCompleteCounter + 1;
         totalCounter = totalCounter + 1;
         counterText.textContent = `${totalCounter}/${totalRecipes} recipes completed`;
