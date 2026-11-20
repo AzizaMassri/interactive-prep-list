@@ -12,7 +12,7 @@ loadingErrorMessage.hidden = true;
 loadingErrorButton.hidden = true;
 loadingErrorButton.addEventListener("click", function () {
   loadRecipes();
-})
+});
 
 async function loadRecipes() {
   try {
@@ -35,19 +35,18 @@ async function loadRecipes() {
     for (const remove of removeCounter) {
       remove.remove();
     }
-
     initApp();
   } catch (error) {
     console.error("Error loading JSON:", error);
     if (document.querySelectorAll(".recipe-group-div").length === 0)  {
-      loadingErrorMessage.textContent = "Failed to load recipes, Check your connection and try again."
+      loadingErrorMessage.textContent = "Failed to load recipes, Check your connection and try again.";
     }else {
-    loadingErrorMessage.textContent = "Unable to refresh recipes. Your previously loaded recipes are still available. Please try again."
+    loadingErrorMessage.textContent = "Unable to refresh recipes. Your previously loaded recipes are still available. Please try again.";
     }
     loadingErrorMessage.hidden = false;
     loadingErrorButton.hidden = false;
   }
-};
+}
 
 function initApp() {
 
@@ -55,7 +54,7 @@ function initApp() {
   let totalRecipes = 0;
   for (const group of recipeGroups) {
     totalRecipes += group.recipes.length;
-  };
+  }
   const counterText = document.createElement("p");
   counterText.classList.add("counter-text");
   counterText.textContent = `${totalCounter}/${totalRecipes} recipes completed`;
@@ -108,7 +107,7 @@ function initApp() {
       recipeYield.textContent = recipe.yield;
       for (const ingredient of recipe.ingredients) {
         const ingredientList = document.createElement("li");
-        ingredientList.classList.add("ingredient-li")
+        ingredientList.classList.add("ingredient-li");
         recipeIngredients.append(ingredientList);
         ingredientList.append(`${ingredient.name} -- ${ingredient.quantity} ${ingredient.unit}`);
       }
@@ -148,7 +147,7 @@ function initApp() {
           recipeGroupH2.style.color = "#888888";
         }
 
-      })
+      });
     }
   }
 }
