@@ -25,10 +25,25 @@ async function loadRecipes() {
     recipeGroups = await response.json();
     loadingErrorMessage.hidden = true;
     loadingErrorButton.hidden = true;
+    const loadedRecipes = document.querySelectorAll(".recipe-group-div");
+
+    for (const loaded of loadedRecipes) {
+      loaded.remove();
+    }
+    const removeCounter = document.querySelectorAll(".counter-text");
+
+    for (const remove of removeCounter) {
+      remove.remove();
+    }
 
     initApp();
   } catch (error) {
     console.error("Error loading JSON:", error);
+    if (document.querySelectorAll(".recipe-group-div").length === 0)  {
+      loadingErrorMessage.textContent = "Failed to load recipes, Check your connection and try again."
+    }else {
+    loadingErrorMessage.textContent = "Unable to refresh recipes. Your previously loaded recipes are still available. Please try again."
+    }
     loadingErrorMessage.hidden = false;
     loadingErrorButton.hidden = false;
   }
