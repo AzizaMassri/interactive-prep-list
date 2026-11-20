@@ -23,17 +23,18 @@
 
 - **Inputs:** Recipe data from `recipeGroups.json`, DOM events, Show More/Hide All buttons, Details/Hide buttons, recipe completion checkboxes, and the Retry button.
 - **Steps:**
-
-1. Retrieve recipe data from `recipeGroups.json` using `fetch()`.
-2. Check whether the request was successful and convert the response into JavaScript data.
-3. Display recipe groups with a Show More button to expand their recipes in a predetermined order.
-4. Allow employees to expand an incomplete recipe to view its yield, ingredients, and quantities.
-5. Allow employees to mark a recipe complete using its checkbox.
-6. Update the recipe's completion status, hide its details button, details, and checkbox, grey out the recipe, and add one to the recipes-completed counter.
-7. When all recipes in a group are completed, grey out the group name while allowing the group to remain expandable.
-8. If recipe data fails to load, display an appropriate error message and Retry button.
-9. If a refresh fails after recipes have already loaded, keep the previously loaded recipes visible.
-10. When loading succeeds, hide the error message, remove the previous recipe elements and counter, and rebuild the list.
+  <ol type="1">
+    <li>Retrieve recipe data from <code>recipeGroups.json</code> using <code>fetch()</code>.</li>
+    <li>Check whether the request was successful and convert the response into JavaScript data.</li>
+    <li>Display recipe groups with a Show More button to expand their recipes in a predetermined order.</li>
+    <li>Allow employees to expand an incomplete recipe to view its yield, ingredients, and quantities.</li>
+    <li>Allow employees to mark a recipe complete using its checkbox.</li>
+    <li>Update the recipe's completion status, hide its details button, details, and checkbox, grey out the recipe, and add one to the recipes-completed counter.</li>
+    <li>When all recipes in a group are completed, grey out the group name while allowing the group to remain expandable.</li>
+    <li>If recipe data fails to load, display an appropriate error message and Retry button.</li>
+    <li>If a refresh fails after recipes have already loaded, keep the previously loaded recipes visible.</li>
+    <li>When loading succeeds, hide the error message, remove the previous recipe elements and counter, and rebuild the list.</li>
+  </ol>
 - **Outputs:** Page title, recipe completion counter, expandable and collapsible recipe groups, expandable recipe details, completion styling, and loading error messages with a retry option.
 
 ## Test Cases (Input, Expected Result, Why)
