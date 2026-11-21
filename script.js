@@ -150,6 +150,119 @@ function initApp() {
       });
     }
   }
+  const recipeForm = document.createElement("form");
+  recipeGroupList.append(recipeForm);
+  const recipeFormLabel = document.createElement("h2");
+  recipeFormLabel.textContent = "Add a Recipe:";
+  recipeForm.append(recipeFormLabel);
+ 
+  const recipeGroupAdd = document.createElement("input");
+  recipeGroupAdd.type = "text";
+  const recipeGroupLabel = document.createElement("label");
+  recipeGroupLabel.textContent = "Recipe Group";
+  recipeForm.append(recipeGroupLabel);
+  recipeGroupLabel.append(recipeGroupAdd);
+  
+  const moreRecipes = document.createElement("button");
+  moreRecipes.textContent = "Add Another Recipe";
+  moreRecipes.type = "button";
+  recipeForm.append(moreRecipes);
+
+  moreRecipes.addEventListener("click", function () {
+    createRecipe();
+  })
+
+    function createRecipe() {
+    const recipeDiv = document.createElement("div");
+    moreRecipes.before(recipeDiv);
+    recipeDiv.classList.add("recipe-entry");
+
+    const recipeAdd = document.createElement("input");
+    recipeAdd.type = "text";
+    const recipeLabel = document.createElement("label");
+    recipeLabel.textContent = "Recipe Title";
+    recipeAdd.classList.add("recipe");
+    recipeDiv.append(recipeLabel);
+    recipeLabel.append(recipeAdd);
+
+    const yieldAdd = document.createElement("input");
+    yieldAdd.type = "number";
+    const yieldLabel = document.createElement("label");
+    yieldLabel.textContent = "Yield";
+    yieldAdd.classList.add ("yield");
+    recipeDiv.append(yieldLabel);
+    yieldLabel.append(yieldAdd);
+
+    const moreIngredients = document.createElement("button");
+    moreIngredients.textContent = "Add Another Ingredient";
+    moreIngredients.type = "button";
+    recipeDiv.append(moreIngredients);
+
+    moreIngredients.addEventListener("click", function () {
+      createDetails(moreIngredients);
+  })
+    createDetails(moreIngredients);
+    }
+
+    createRecipe();
+
+  function createDetails(moreIngredients) {
+    const detailsDiv = document.createElement("div");
+    detailsDiv.classList.add("ingredient-entry");
+    moreIngredients.before(detailsDiv);
+
+    const ingredientAdd = document.createElement("input");
+    ingredientAdd.type = "text";
+    const ingredientLabel = document.createElement("label");
+    ingredientLabel.textContent = "Ingredient";
+    ingredientAdd.classList.add("ingredient");
+    detailsDiv.append(ingredientLabel);
+    ingredientLabel.append(ingredientAdd);
+
+    const quantityAdd = document.createElement("input");
+    quantityAdd.type = "number";
+    const quantityLabel = document.createElement("label");
+    quantityLabel.textContent = "Quantity";
+    quantityAdd.classList.add("quantity");
+    detailsDiv.append(quantityLabel);
+    quantityLabel.append(quantityAdd);
+
+    const unitAdd = document.createElement("input");
+    unitAdd.type = "text";
+    const unitLabel = document.createElement("label");
+    unitLabel.textContent = "Unit";
+    unitAdd.classList.add("unit");
+    detailsDiv.append(unitLabel);
+    unitLabel.append(unitAdd);
+    }
+
+  const addNewDiv = document.createElement("div");
+  const addNew = document.createElement("button");
+  addNew.type = "button";
+  addNew.textContent = "Add";
+  recipeForm.append(addNewDiv);
+  addNewDiv.append(addNew);
+
+  addNew.addEventListener("click", function () {
+    const newGroup = {group: recipeGroupAdd.value, recipes: []};
+    const recipeEntries = recipeForm.querySelectorAll(".recipe-entry");
+      for (const entry of recipeEntries) {
+        const recipeNames = entry.querySelector(".recipe").value;
+        const yield = entry.querySelector(".yield").value;
+        const newRecipe = {recipe: recipeNames, yield: yield, ingredients: []};
+        const ingredients = entry.querySelectorAll(".ingredient-entry");
+          for (const ingredientEntry of ingredients) {
+            const ingredient = ingredientEntry.querySelector(".ingredient").value;
+            const quantity = ingredientEntry.querySelector(".quantity").value;
+            const unit = ingredientEntry.querySelector(".unit").value;
+            const newDetails = {name: ingredient, quantity: quantity, unit: unit};
+            newRecipe.ingredients.push(newDetails);
+          }
+          newGroup.recipes.push(newRecipe);
+      }
+      recipeGroups.push(newGroup);
+      console.log(newGroup); 
+  })
 }
 
 loadRecipes();
