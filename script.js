@@ -59,7 +59,14 @@ function initApp() {
   counterText.classList.add("counter-text");
   counterText.textContent = `${totalCounter}/${totalRecipes} recipes completed`;
   recipeGroupList.append(counterText);
-  for (const group of recipeGroups) {
+
+  const recipeForm = document.createElement("form");
+  recipeGroupList.append(recipeForm);
+  const recipeFormLabel = document.createElement("h2");
+  recipeFormLabel.textContent = "Add a Recipe:";
+  recipeForm.append(recipeFormLabel);
+
+  function renderGroup(group) {
     const recipeGroupDiv = document.createElement("div");
     recipeGroupDiv.classList.add("recipe-group-div");
     const recipeGroupH2 = document.createElement("h2");
@@ -71,7 +78,7 @@ function initApp() {
     let recipeCompleteCounter = 0;
     recipeGroupH2.textContent = group.group;
     recipeGroupShow.textContent = "Show More";
-    recipeGroupList.append(recipeGroupDiv);
+    recipeForm.before(recipeGroupDiv);
     recipeGroupDiv.append(recipeGroupH2);
     recipeGroupDiv.append(recipeGroupShow);
     recipeGroupDiv.append(recipeGroupUl);
@@ -150,11 +157,9 @@ function initApp() {
       });
     }
   }
-  const recipeForm = document.createElement("form");
-  recipeGroupList.append(recipeForm);
-  const recipeFormLabel = document.createElement("h2");
-  recipeFormLabel.textContent = "Add a Recipe:";
-  recipeForm.append(recipeFormLabel);
+  for (const group of recipeGroups) {
+    renderGroup(group);
+  }
  
   const recipeGroupAdd = document.createElement("input");
   recipeGroupAdd.type = "text";
@@ -261,6 +266,7 @@ function initApp() {
           newGroup.recipes.push(newRecipe);
       }
       recipeGroups.push(newGroup);
+      renderGroup(newGroup);
       console.log(newGroup); 
   })
 }
