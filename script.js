@@ -266,6 +266,8 @@ function initApp() {
           newGroup.recipes.push(newRecipe);
       }
       recipeGroups.push(newGroup);
+      totalRecipes += newGroup.recipes.length;
+      counterText.textContent = `${totalCounter}/${totalRecipes} recipes completed`;
       renderGroup(newGroup);
       console.log(newGroup); 
   })
