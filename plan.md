@@ -17,7 +17,7 @@
 **Questions to ask (with the answers):** See questions above.  
 **Answers:** Yes, Yes, Yes, No, No, Yes, Yes
 
-**Current implementation:** The project displays recipe groups and their individual recipes using data stored in a separate JSON file. Employees can expand recipe groups, view recipe details, and mark recipes as completed. The application also tracks overall completion and handles errors when recipe data cannot be loaded. Employees can use a form to add new recipe groups with recipes, yields, and ingredients during the current page session. A reusable `renderGroup()` function displays both loaded and newly added groups, and the overall recipe total updates when new recipes are added. After submission, the form clears its input values and returns to one recipe entry with one ingredient entry.
+**Current implementation:** The project displays recipe groups and their individual recipes using data stored in a separate JSON file. Employees can expand recipe groups, view recipe details, and mark recipes as completed. The application also tracks overall completion and handles errors when recipe data cannot be loaded. Employees can use a form to add new recipe groups with recipes, yields, and ingredients during the current page session. A reusable `renderGroup()` function displays both loaded and newly added groups, and the overall recipe total updates when new recipes are added. After submission, the form clears its input values and returns to one recipe entry with one ingredient entry. The form is created only once, while recipe groups and the completion counter are rebuilt after a successful Retry. Shared counter variables keep Add and Done interactions consistent after reloading.
 
 ## Inputs, Steps, and Outputs
 
@@ -33,7 +33,8 @@
     <li>When all recipes in a group are completed, grey out the group name while allowing the group to remain expandable.</li>
     <li>If recipe data fails to load, display an appropriate error message and Retry button.</li>
     <li>If a refresh fails after recipes have already loaded, keep the previously loaded recipes visible.</li>
-    <li>When loading succeeds, hide the error message, remove the previous recipe elements and counter, and rebuild the list.</li>
+    <li>When loading succeeds, hide the error message, remove the previous recipe elements and counter, and rebuild the list without duplicating the Add Recipe form.</li>
+    <li>Reset the shared completion and total recipe counts before recalculating the totals, and place the new counter above the recipe groups.</li>
     <li>Allow employees to enter a new recipe group, add multiple recipes, and enter each recipe’s yield, ingredients, quantities, and units.</li>
     <li>When Add is clicked, collect the form entries into a new recipe group, add it to the in-memory recipe data, and display it above the form using the reusable rendering function.</li>
     <li>Increase the total number of recipes and refresh the displayed completion counter when new recipes are added.</li>
@@ -49,7 +50,10 @@
 - **Berry Pancakes group, all recipes completed, expanded: true** - The group name is greyed out. The group can still be expanded to show its completed recipes, and the Show More button changes to Hide All.
 - **Initial JSON loading failure** - Displays an error message and Retry button because no recipe data was successfully loaded.
 - **Failed refresh after a successful load** - Displays a refresh error message while keeping previously loaded recipes visible so employees do not lose access to the existing list.
-- **Successful retry after a loading failure** - Hides the error message and Retry button, then displays the recipe groups and completion counter without duplicating existing elements.
+- **Successful retry after a loading failure** - Hides the error message and Retry button, then displays the recipe groups and completion counter without duplicating recipe groups or the Add Recipe form.
+- **Failed refresh followed by Retry** - Keeps existing recipes visible during the failure, then replaces the displayed groups and counter on success while leaving one Add Recipe form.
+- **Add and complete recipes after Retry** - Adds one recipe to the total and increases the completed count when Done is selected, including for a newly added recipe and an existing recipe.
+- **Repeat Retry after adding and completing recipes** - Reloads the original JSON recipes, resets unsaved additions and completion progress, and allows Add and Done to update the same visible counter correctly.
 
 - **Add a group with two recipes** - Displays the new group above the form, allows its recipes to expand and be marked complete, and increases the total recipe count by two.
 - **Complete a newly added recipe** - Increases the completed count by one without changing the total number of recipes.
@@ -80,10 +84,16 @@ FUNCTION loadRecipes
     DISPLAY Retry button
 
 FUNCTION initApp
-  CALCULATE total number of recipes
-  DISPLAY completion counter
+  RESET shared total and completed counters to zero
+  CALCULATE total number of recipes from loaded data
+  CREATE completion counter element
+  FIND existing Add Recipe form
 
-  CREATE and APPEND Add Recipe form
+  IF Add Recipe form does not exist
+    CREATE and APPEND Add Recipe form
+    BUILD form inputs for recipe group, recipes, yields, and ingredients
+    ALLOW additional recipe and ingredient entries
+    REGISTER Add button event listener
 
   DEFINE renderGroup(group)
     DISPLAY group name
@@ -112,18 +122,17 @@ FUNCTION initApp
             HIDE recipe details and checkbox
             GREY out recipe name
             ADD to recipe completion counter
-            ADD to overall completion counter
+            ADD to shared overall completion counter
+            UPDATE current displayed completion counter
 
     IF all recipes in group are complete
       GREY out group name
 
+  INSERT completion counter before Add Recipe form
   FOR EACH recipe group
     CALL renderGroup(group)
 
-  BUILD form inputs for recipe group, recipes, yields, and ingredients
-  ALLOW additional recipe and ingredient entries
-
-  WHEN Add button is clicked
+  WHEN Add button is clicked (listener registered when form was created)
     CREATE a new group from form values
     FOR EACH recipe entry
       CREATE recipe with its yield
@@ -132,7 +141,8 @@ FUNCTION initApp
       ADD recipe to new group
     ADD new group to recipe data
     INCREASE total recipe count by number of new recipes
-    UPDATE displayed completion counter
+    FIND current displayed completion counter
+    UPDATE its text using shared counter values
     CALL renderGroup(new group)
     RESET form input values
     REMOVE all recipe entries except the first
@@ -164,6 +174,10 @@ WHEN Retry button is clicked
 - [x] Test displaying and completing newly added recipes.
 - [x] Reset the Add Recipe form after submission, including removal of extra recipe and ingredient entries.
 - [x] Test that the form returns to one empty recipe and ingredient entry after submission.
+- [x] Prevent duplicate Add Recipe forms after successful Retry.
+- [x] Keep the completion counter above recipe groups after Retry.
+- [x] Share counter variables across Add and Done event listeners and reset them when loaded data is rebuilt.
+- [x] Test adding and completing recipes after Retry, including a second Retry.
 
 ## Future Improvements
 
