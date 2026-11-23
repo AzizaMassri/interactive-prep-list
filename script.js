@@ -269,7 +269,19 @@ function initApp() {
       totalRecipes += newGroup.recipes.length;
       counterText.textContent = `${totalCounter}/${totalRecipes} recipes completed`;
       renderGroup(newGroup);
-      console.log(newGroup); 
+      console.log(newGroup);
+      recipeForm.reset(); 
+      for (const recipe of recipeEntries) {
+        if (recipe !== recipeEntries[0]) {
+        recipe.remove();
+  }
+}
+  const firstRecipeIngredients = recipeEntries[0].querySelectorAll(".ingredient-entry");
+    for (const ingredient of firstRecipeIngredients) {
+      if (ingredient !== firstRecipeIngredients[0]) {
+      ingredient.remove();
+  }
+}
   })
 }
 
