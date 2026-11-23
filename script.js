@@ -38,10 +38,10 @@ async function loadRecipes() {
     initApp();
   } catch (error) {
     console.error("Error loading JSON:", error);
-    if (document.querySelectorAll(".recipe-group-div").length === 0)  {
+    if (document.querySelectorAll(".recipe-group-div").length === 0) {
       loadingErrorMessage.textContent = "Failed to load recipes, Check your connection and try again.";
-    }else {
-    loadingErrorMessage.textContent = "Unable to refresh recipes. Your previously loaded recipes are still available. Please try again.";
+    } else {
+      loadingErrorMessage.textContent = "Unable to refresh recipes. Your previously loaded recipes are still available. Please try again.";
     }
     loadingErrorMessage.hidden = false;
     loadingErrorButton.hidden = false;
@@ -160,14 +160,14 @@ function initApp() {
   for (const group of recipeGroups) {
     renderGroup(group);
   }
- 
+
   const recipeGroupAdd = document.createElement("input");
   recipeGroupAdd.type = "text";
   const recipeGroupLabel = document.createElement("label");
   recipeGroupLabel.textContent = "Recipe Group";
   recipeForm.append(recipeGroupLabel);
   recipeGroupLabel.append(recipeGroupAdd);
-  
+
   const moreRecipes = document.createElement("button");
   moreRecipes.textContent = "Add Another Recipe";
   moreRecipes.type = "button";
@@ -175,9 +175,9 @@ function initApp() {
 
   moreRecipes.addEventListener("click", function () {
     createRecipe();
-  })
+  });
 
-    function createRecipe() {
+  function createRecipe() {
     const recipeDiv = document.createElement("div");
     moreRecipes.before(recipeDiv);
     recipeDiv.classList.add("recipe-entry");
@@ -194,7 +194,7 @@ function initApp() {
     yieldAdd.type = "number";
     const yieldLabel = document.createElement("label");
     yieldLabel.textContent = "Yield";
-    yieldAdd.classList.add ("yield");
+    yieldAdd.classList.add("yield");
     recipeDiv.append(yieldLabel);
     yieldLabel.append(yieldAdd);
 
@@ -205,11 +205,11 @@ function initApp() {
 
     moreIngredients.addEventListener("click", function () {
       createDetails(moreIngredients);
-  })
+    });
     createDetails(moreIngredients);
-    }
+  }
 
-    createRecipe();
+  createRecipe();
 
   function createDetails(moreIngredients) {
     const detailsDiv = document.createElement("div");
@@ -239,7 +239,7 @@ function initApp() {
     unitAdd.classList.add("unit");
     detailsDiv.append(unitLabel);
     unitLabel.append(unitAdd);
-    }
+  }
 
   const addNewDiv = document.createElement("div");
   const addNew = document.createElement("button");
@@ -249,40 +249,40 @@ function initApp() {
   addNewDiv.append(addNew);
 
   addNew.addEventListener("click", function () {
-    const newGroup = {group: recipeGroupAdd.value, recipes: []};
+    const newGroup = { group: recipeGroupAdd.value, recipes: [] };
     const recipeEntries = recipeForm.querySelectorAll(".recipe-entry");
-      for (const entry of recipeEntries) {
-        const recipeNames = entry.querySelector(".recipe").value;
-        const yield = entry.querySelector(".yield").value;
-        const newRecipe = {recipe: recipeNames, yield: yield, ingredients: []};
-        const ingredients = entry.querySelectorAll(".ingredient-entry");
-          for (const ingredientEntry of ingredients) {
-            const ingredient = ingredientEntry.querySelector(".ingredient").value;
-            const quantity = ingredientEntry.querySelector(".quantity").value;
-            const unit = ingredientEntry.querySelector(".unit").value;
-            const newDetails = {name: ingredient, quantity: quantity, unit: unit};
-            newRecipe.ingredients.push(newDetails);
-          }
-          newGroup.recipes.push(newRecipe);
+    for (const entry of recipeEntries) {
+      const recipeNames = entry.querySelector(".recipe").value;
+      const yield = entry.querySelector(".yield").value;
+      const newRecipe = { recipe: recipeNames, yield: yield, ingredients: [] };
+      const ingredients = entry.querySelectorAll(".ingredient-entry");
+      for (const ingredientEntry of ingredients) {
+        const ingredient = ingredientEntry.querySelector(".ingredient").value;
+        const quantity = ingredientEntry.querySelector(".quantity").value;
+        const unit = ingredientEntry.querySelector(".unit").value;
+        const newDetails = { name: ingredient, quantity: quantity, unit: unit };
+        newRecipe.ingredients.push(newDetails);
       }
-      recipeGroups.push(newGroup);
-      totalRecipes += newGroup.recipes.length;
-      counterText.textContent = `${totalCounter}/${totalRecipes} recipes completed`;
-      renderGroup(newGroup);
-      console.log(newGroup);
-      recipeForm.reset(); 
-      for (const recipe of recipeEntries) {
-        if (recipe !== recipeEntries[0]) {
+      newGroup.recipes.push(newRecipe);
+    }
+    recipeGroups.push(newGroup);
+    totalRecipes += newGroup.recipes.length;
+    counterText.textContent = `${totalCounter}/${totalRecipes} recipes completed`;
+    renderGroup(newGroup);
+    console.log(newGroup);
+    recipeForm.reset();
+    for (const recipe of recipeEntries) {
+      if (recipe !== recipeEntries[0]) {
         recipe.remove();
-  }
-}
-  const firstRecipeIngredients = recipeEntries[0].querySelectorAll(".ingredient-entry");
+      }
+    }
+    const firstRecipeIngredients = recipeEntries[0].querySelectorAll(".ingredient-entry");
     for (const ingredient of firstRecipeIngredients) {
       if (ingredient !== firstRecipeIngredients[0]) {
-      ingredient.remove();
-  }
-}
-  })
+        ingredient.remove();
+      }
+    }
+  });
 }
 
 loadRecipes();
