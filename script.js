@@ -5,6 +5,7 @@ const recipeGroupList = document.querySelector(".recipe-groups");
 let loadingErrorMessage = document.createElement("p");
 loadingErrorMessage.textContent = "Error: No recipes loaded.";
 const loadingErrorButton = document.createElement("button");
+loadingErrorButton.classList.add("button");
 loadingErrorButton.textContent = "Retry";
 recipeGroupList.append(loadingErrorMessage);
 recipeGroupList.append(loadingErrorButton);
@@ -170,6 +171,7 @@ function initApp() {
   recipeGroupLabel.append(recipeGroupAdd);
 
   const moreRecipes = document.createElement("button");
+  moreRecipes.classList.add("button");
   moreRecipes.textContent = "Add Another Recipe";
   moreRecipes.type = "button";
   recipeForm.append(moreRecipes);
@@ -200,6 +202,7 @@ function initApp() {
     yieldLabel.append(yieldAdd);
 
     const moreIngredients = document.createElement("button");
+    moreIngredients.classList.add("button");
     moreIngredients.textContent = "Add Another Ingredient";
     moreIngredients.type = "button";
     recipeDiv.append(moreIngredients);
@@ -244,6 +247,7 @@ function initApp() {
 
   const addNewDiv = document.createElement("div");
   const addNew = document.createElement("button");
+  addNew.classList.add("button");
   addNew.type = "button";
   addNew.textContent = "Add";
   recipeForm.append(addNewDiv);
