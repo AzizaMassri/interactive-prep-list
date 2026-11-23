@@ -258,7 +258,7 @@ function initApp() {
     const recipeEntries = recipeForm.querySelectorAll(".recipe-entry");
     for (const entry of recipeEntries) {
       const recipeNames = entry.querySelector(".recipe").value;
-      const yield = entry.querySelector(".yield").value;
+      const yield = `${entry.querySelector(".yield").value} Servings`;
       const newRecipe = { recipe: recipeNames, yield: yield, ingredients: [] };
       const ingredients = entry.querySelectorAll(".ingredient-entry");
       for (const ingredientEntry of ingredients) {
