@@ -62,6 +62,7 @@ function initApp() {
 
   const recipeForm = document.createElement("form");
   recipeGroupList.append(recipeForm);
+  recipeForm.classList.add("recipe-form");
   const recipeFormLabel = document.createElement("h2");
   recipeFormLabel.textContent = "Add a Recipe:";
   recipeForm.append(recipeFormLabel);
