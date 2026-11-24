@@ -5,13 +5,13 @@ let totalRecipes = 0;
 const recipeGroupList = document.querySelector(".recipe-groups");
 
 let loadingErrorMessage = document.createElement("p");
-loadingErrorMessage.textContent = "Error: No recipes loaded.";
+loadingErrorMessage.textContent = "";
+loadingErrorMessage.setAttribute("aria-live", "assertive");
 const loadingErrorButton = document.createElement("button");
 loadingErrorButton.classList.add("button");
 loadingErrorButton.textContent = "Retry";
 recipeGroupList.append(loadingErrorMessage);
 recipeGroupList.append(loadingErrorButton);
-loadingErrorMessage.hidden = true;
 loadingErrorButton.hidden = true;
 loadingErrorButton.addEventListener("click", function () {
   loadRecipes();
@@ -26,7 +26,7 @@ async function loadRecipes() {
     }
 
     recipeGroups = await response.json();
-    loadingErrorMessage.hidden = true;
+    loadingErrorMessage.textContent = "";
     loadingErrorButton.hidden = true;
     const loadedRecipes = document.querySelectorAll(".recipe-group-div");
 
@@ -46,7 +46,7 @@ async function loadRecipes() {
     } else {
       loadingErrorMessage.textContent = "Unable to refresh recipes. Your previously loaded recipes are still available. Please try again.";
     }
-    loadingErrorMessage.hidden = false;
+    
     loadingErrorButton.hidden = false;
   }
 }
@@ -61,6 +61,7 @@ function initApp() {
   const counterText = document.createElement("p");
   counterText.classList.add("counter-text");
   counterText.textContent = `${totalCounter}/${totalRecipes} recipes completed`;
+  counterText.setAttribute("aria-live", "polite");
   let recipeForm = document.querySelector(".recipe-form");
 
   if (recipeForm === null) {
