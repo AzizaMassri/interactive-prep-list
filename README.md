@@ -14,8 +14,8 @@ You need nothing installed to use the live version.
 2. The page displays a completion counter, recipe groups, and an **Add a Recipe** form.
 3. Select **Show More** to expand a recipe group and view its individual recipes.
 4. Select **Details** on a recipe to view its yield, ingredients, quantities, and units.
-5. Check **Done** to complete a recipe. Its name turns grey, its details and checkbox are hidden, and the completion counter increases. When every recipe in a group is complete, the group heading also turns grey.
-6. To add a group, enter a **Recipe Group** name in the form. Fill in the recipe title, yield, and ingredient details. Use **Add Another Ingredient** and **Add Another Recipe** as needed, then select **Add**.
+5. Check **Done** to complete a recipe. Its name turns grey, its details and checkbox are hidden, and the completion counter increases. When every recipe in a group is complete, the group heading turns grey and displays “is complete.”
+6. To add a group, enter a **Recipe Group** name in the form. Fill in the recipe title, yield, and ingredient details. Use **Add a New Ingredient** and **Add a New Recipe** as needed, then select **Add Recipe Group**.
 7. The new group appears above the form. Its recipes can be expanded and marked complete just like the original recipes, and the total recipe count updates.
 
 **Note:** New recipes and completion progress are stored only for the current session. Reloading the page or successfully retrying a data load restores the recipes from `recipeGroups.json`; it does not save your additions or completion status.
@@ -26,7 +26,7 @@ To run a local copy, clone or download the repository and serve the project fold
 
 ## Demo
 
-Both demos show the same workflow: expanding recipe groups, viewing recipe details, marking recipes complete, and adding a new group with multiple recipes and ingredients. The desktop recording also shows collapsing a completed group.
+The demos were recorded before the accessibility updates and may show older button names and styling. Both demos show the same workflow: expanding recipe groups, viewing recipe details, marking recipes complete, and adding a new group with multiple recipes and ingredients. The desktop recording also shows collapsing a completed group.
 
 ### Desktop
 
@@ -44,7 +44,7 @@ For example, on the live page:
 2. Open **Details** and mark **Pancakes**, **Strawberry Topping**, and **Whipped Topping** as **Done**.
 3. Expand **Breakfast Sandwich** and open **Details** for **Toasted English Muffins**.
 
-The completion counter should show **3/20 recipes completed**. The completed recipes and the Berry Pancakes heading should be grey, while Toasted English Muffins should display its yield and ingredients.
+The completion counter should show **3/20 recipes completed**. The completed recipes should be grey and display Done, and the grey group heading should read **Berry Pancakes is complete**, while Toasted English Muffins should display its yield and ingredients.
 
 You can also use the form to add a group such as **Chicken and Waffles**, with recipes such as **Breaded Chicken Filets** and **Buttermilk Waffles**. Adding two recipes increases the total from 20 to 22; marking one Done increases the completed count by one.
 
@@ -58,12 +58,27 @@ You can also use the form to add a group such as **Chicken and Waffles**, with r
 - Added error handling and a **Retry** button for failed data loads, preserving previously displayed recipes when a refresh fails.
 - Fixed duplicate elements and inconsistent counter updates after retrying by reusing the form and sharing the counter variables across event listeners.
 - Styled the interface for mobile and desktop screens.
-- **AI use:** I used My Code Coach for explanations, hints, and troubleshooting throughout development. Topics included nested arrays and objects, nested loops, DOM manipulation, event listeners, recipe completion logic, counters, loading data from JSON, error handling, form creation, and debugging Retry behavior. I also received guidance on CSS styling and code cleanup. I implemented and tested the JavaScript and CSS myself. AI also assisted with preparing the demo GIFs and updating this README.
+- **AI use:** I used ChatGPT, configured as a personalized coding tutor called My Code Coach, for explanations, hints, and troubleshooting throughout development. Topics included nested arrays and objects, nested loops, DOM manipulation, event listeners, recipe completion logic, counters, loading data from JSON, error handling, form creation, and debugging Retry behavior. I also received guidance on CSS styling, code cleanup, accessibility attributes, keyboard focus management, and screen reader testing. I implemented and tested the JavaScript and CSS myself. AI also assisted with preparing the demo GIFs and updating this README.
+
+## Accessibility
+
+- Associated labels with form inputs and completion checkboxes, and added form input names.
+- Added visible keyboard focus styling and improved color contrast.
+- Managed keyboard focus after recipe completion and when adding recipe or ingredient fields.
+- Added descriptive accessible names (`aria-label`) and synchronized expanded states (`aria-expanded`) to recipe toggle buttons.
+- Renamed form buttons to clarify their actions.
+- Added polite live announcements for completion counter changes and assertive announcements for loading errors. The error paragraph remains present and is cleared after successful loading.
+- Added text-based group completion indicators so completion does not rely on color alone.
+
+Manual testing with Windows Narrator in Google Chrome confirmed recipe toggle names and states, recipe details and checkbox readability, completion counter announcements, focus movement, group completion heading readability, form labels and values, newly added field announcements, and the automatic initial loading error announcement. DevTools testing also verified live region attributes and error message updates during failed loads and retries.
+
+Testing observations: Narrator reported zero minimum and maximum values for the numeric yield input, although entered values were readable. It also announced the page title and browser once when adding an ingredient; subsequent attempts did not reproduce this. The causes remain unconfirmed. These tests are not a formal WCAG compliance audit.
 
 ## What I would change next
 
 - Add local storage so completion progress and user-entered recipes persist across page visits.
 - Add a way to edit or remove recipe groups and recipes after they have been created.
+- Add input validation, including appropriate numeric input limits.
 
 ## Files
 
