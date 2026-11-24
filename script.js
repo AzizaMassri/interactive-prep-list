@@ -287,7 +287,7 @@ function initApp() {
         recipeCheckbox.addEventListener("change", function () {
           recipe.completed = recipeCheckbox.checked;
           if (recipe.completed === true) {
-            recipeName.style.color = "#888888";
+            recipeName.style.color = "#636363";
             recipeIngredients.hidden = true;
             recipeShow.hidden = true;
             recipeYield.hidden = true;
@@ -308,7 +308,7 @@ function initApp() {
               }
           }
           if (recipeCompleteCounter === group.recipes.length) {
-            recipeGroupH2.style.color = "#888888";
+            recipeGroupH2.style.color = "#636363";
           }
 
         });

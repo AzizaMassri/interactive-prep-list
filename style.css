@@ -46,7 +46,7 @@ div {
   padding-bottom: 8px;
   border-radius: 5px;
   background-color: #FAFAF7;
-  box-shadow: 0 1px 3px #888888;
+  box-shadow: 0 1px 3px #636363;
 }
 
 .recipe-group-ul {
@@ -62,7 +62,7 @@ div {
   display: block;
   width: fit-content;
   border-radius: 5px;
-  border: 1px solid #888888;
+  border: 1px solid #636363;
   margin: 8px auto;
   padding: 6px 12px;
   background-color: #FFFFFF;
@@ -107,7 +107,7 @@ label {
   max-width: 400px;
   font-family: "Inter", sans-serif;
   font-style: italic;
-  border: 1px solid #888888;
+  border: 1px solid #636363;
 }
 
 .recipe-entry:not(:first-of-type) {
