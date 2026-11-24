@@ -82,7 +82,7 @@ function initApp() {
 
     const moreRecipes = document.createElement("button");
     moreRecipes.classList.add("button");
-    moreRecipes.textContent = "Add Another Recipe";
+    moreRecipes.textContent = "Add a New Recipe";
     moreRecipes.type = "button";
     recipeForm.append(moreRecipes);
 
@@ -119,7 +119,7 @@ function initApp() {
 
       const moreIngredients = document.createElement("button");
       moreIngredients.classList.add("button");
-      moreIngredients.textContent = "Add Another Ingredient";
+      moreIngredients.textContent = "Add a New Ingredient";
       moreIngredients.type = "button";
       recipeDiv.append(moreIngredients);
 
@@ -172,7 +172,7 @@ function initApp() {
     const addNew = document.createElement("button");
     addNew.classList.add("button");
     addNew.type = "button";
-    addNew.textContent = "Add";
+    addNew.textContent = "Add New Recipe Group";
     recipeForm.append(addNewDiv);
     addNewDiv.append(addNew);
 
