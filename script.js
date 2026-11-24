@@ -225,6 +225,7 @@ function initApp() {
       let recipeCompleteCounter = 0;
       recipeGroupH2.textContent = group.group;
       recipeGroupShow.textContent = "Show More";
+      recipeGroupShow.setAttribute("aria-label", `Show More ${group.group}`);
       recipeForm.before(recipeGroupDiv);
       recipeGroupDiv.append(recipeGroupH2);
       recipeGroupDiv.append(recipeGroupShow);
@@ -235,10 +236,12 @@ function initApp() {
           recipeGroupUl.hidden = false;
           recipeGroupShow.textContent = "Hide All";
           recipeGroupShow.setAttribute("aria-expanded", true);
+          recipeGroupShow.setAttribute("aria-label", `Hide All ${group.group}`);
         } else {
           recipeGroupUl.hidden = true;
           recipeGroupShow.textContent = "Show More";
           recipeGroupShow.setAttribute("aria-expanded", false);
+          recipeGroupShow.setAttribute("aria-label", `Show More ${group.group}`);
         }
       });
       for (const recipe of group.recipes) {
@@ -250,6 +253,7 @@ function initApp() {
         recipeShow.classList.add("button");
         recipeShow.classList.add("details-button");
         recipeShow.setAttribute("aria-expanded", false);
+        recipeShow.setAttribute("aria-label", `Details ${recipe.recipe}`);
         const recipeDiv = document.createElement("div");
         recipeDiv.classList.add("recipe-div");
         const recipeYield = document.createElement("p");
@@ -283,10 +287,12 @@ function initApp() {
             recipeDiv.hidden = false;
             recipeShow.textContent = "Hide";
             recipeShow.setAttribute("aria-expanded", true);
+            recipeShow.setAttribute("aria-label", `Hide ${recipe.recipe}`);
           } else {
             recipeDiv.hidden = true;
             recipeShow.textContent = "Details";
             recipeShow.setAttribute("aria-expanded", false);
+            recipeShow.setAttribute("aria-label", `Details ${recipe.recipe}`);
           }
 
         });
