@@ -73,6 +73,7 @@ function initApp() {
 
         const recipeGroupAdd = document.createElement("input");
     recipeGroupAdd.type = "text";
+    recipeGroupAdd.name = "recipeGroup";
     const recipeGroupLabel = document.createElement("label");
     recipeGroupLabel.textContent = "Recipe Group";
     recipeForm.append(recipeGroupLabel);
@@ -95,6 +96,7 @@ function initApp() {
 
       const recipeAdd = document.createElement("input");
       recipeAdd.type = "text";
+      recipeAdd.name = "recipeName";
       const recipeLabel = document.createElement("label");
       recipeLabel.textContent = "Recipe Title";
       recipeAdd.classList.add("recipe");
@@ -103,6 +105,7 @@ function initApp() {
 
       const yieldAdd = document.createElement("input");
       yieldAdd.type = "number";
+      yieldAdd.name = "recipeYield";
       const yieldLabel = document.createElement("label");
       yieldLabel.textContent = "Yield";
       yieldAdd.classList.add("yield");
@@ -130,6 +133,7 @@ function initApp() {
 
       const ingredientAdd = document.createElement("input");
       ingredientAdd.type = "text";
+      ingredientAdd.name = "recipeIngredient";
       const ingredientLabel = document.createElement("label");
       ingredientLabel.textContent = "Ingredient";
       ingredientAdd.classList.add("ingredient");
@@ -138,6 +142,7 @@ function initApp() {
 
       const quantityAdd = document.createElement("input");
       quantityAdd.type = "number";
+      quantityAdd.name = "ingredientQuantity";
       const quantityLabel = document.createElement("label");
       quantityLabel.textContent = "Quantity";
       quantityAdd.classList.add("quantity");
@@ -146,6 +151,7 @@ function initApp() {
 
       const unitAdd = document.createElement("input");
       unitAdd.type = "text";
+      unitAdd.name = "ingredientUnit";
       const unitLabel = document.createElement("label");
       unitLabel.textContent = "Unit";
       unitAdd.classList.add("unit");
@@ -257,7 +263,7 @@ function initApp() {
         recipeDiv.append(recipeYield);
         recipeDiv.append(recipeIngredients);
         recipeDiv.append(recipeComplete);
-        recipeDiv.append(recipeCheckbox);
+        recipeComplete.append(recipeCheckbox);
         recipeDiv.hidden = true;
         recipeShow.addEventListener("click", function () {
           if (recipeDiv.hidden) {
