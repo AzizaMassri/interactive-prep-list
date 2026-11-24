@@ -86,10 +86,10 @@ function initApp() {
     recipeForm.append(moreRecipes);
 
     moreRecipes.addEventListener("click", function () {
-      createRecipe();
+      createRecipe(true);
     });
 
-    function createRecipe() {
+    function createRecipe(shouldFocus) {
       const recipeDiv = document.createElement("div");
       moreRecipes.before(recipeDiv);
       recipeDiv.classList.add("recipe-entry");
@@ -102,6 +102,10 @@ function initApp() {
       recipeAdd.classList.add("recipe");
       recipeDiv.append(recipeLabel);
       recipeLabel.append(recipeAdd);
+
+      if (shouldFocus === true) {
+        recipeAdd.focus();
+      }
 
       const yieldAdd = document.createElement("input");
       yieldAdd.type = "number";
@@ -119,14 +123,14 @@ function initApp() {
       recipeDiv.append(moreIngredients);
 
       moreIngredients.addEventListener("click", function () {
-        createDetails(moreIngredients);
+        createDetails(moreIngredients, true);
       });
-      createDetails(moreIngredients);
+      createDetails(moreIngredients, false);
     }
 
-    createRecipe();
+    createRecipe(false);
 
-    function createDetails(moreIngredients) {
+    function createDetails(moreIngredients, shouldFocus) {
       const detailsDiv = document.createElement("div");
       detailsDiv.classList.add("ingredient-entry");
       moreIngredients.before(detailsDiv);
@@ -139,6 +143,10 @@ function initApp() {
       ingredientAdd.classList.add("ingredient");
       detailsDiv.append(ingredientLabel);
       ingredientLabel.append(ingredientAdd);
+
+      if (shouldFocus === true) {
+        ingredientAdd.focus();
+      }
 
       const quantityAdd = document.createElement("input");
       quantityAdd.type = "number";
