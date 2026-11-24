@@ -237,6 +237,7 @@ function initApp() {
         recipeName.classList.add("recipe-name");
         const recipeShow = document.createElement("button");
         recipeShow.classList.add("button");
+        recipeShow.classList.add("details-button");
         const recipeDiv = document.createElement("div");
         recipeDiv.classList.add("recipe-div");
         const recipeYield = document.createElement("p");
@@ -287,6 +288,16 @@ function initApp() {
             recipeCompleteCounter = recipeCompleteCounter + 1;
             totalCounter = totalCounter + 1;
             document.querySelector(".counter-text").textContent = `${totalCounter}/${totalRecipes} recipes completed`;
+            const focusElement = document.querySelectorAll(".button, input");
+            let foundCurrentElement = false;
+            for (const element of focusElement) {
+              if (element === recipeCheckbox) {
+                foundCurrentElement = true;
+              } else if (foundCurrentElement && element.closest("[hidden]") === null) {
+                  element.focus();
+                  break;
+                }
+              }
           }
           if (recipeCompleteCounter === group.recipes.length) {
             recipeGroupH2.style.color = "#888888";
