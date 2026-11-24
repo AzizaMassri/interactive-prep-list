@@ -46,7 +46,7 @@ async function loadRecipes() {
     } else {
       loadingErrorMessage.textContent = "Unable to refresh recipes. Your previously loaded recipes are still available. Please try again.";
     }
-    
+
     loadingErrorButton.hidden = false;
   }
 }
@@ -322,6 +322,7 @@ function initApp() {
           }
           if (recipeCompleteCounter === group.recipes.length) {
             recipeGroupH2.style.color = "#636363";
+            recipeGroupH2.textContent = `${group.group} is complete`;
           }
 
         });
