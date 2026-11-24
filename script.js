@@ -219,6 +219,7 @@ function initApp() {
       recipeGroupH2.classList.add("recipe-group-h2");
       const recipeGroupShow = document.createElement("button");
       recipeGroupShow.classList.add("button");
+      recipeGroupShow.setAttribute("aria-expanded", false);
       const recipeGroupUl = document.createElement("ul");
       recipeGroupUl.classList.add("recipe-group-ul");
       let recipeCompleteCounter = 0;
@@ -233,9 +234,11 @@ function initApp() {
         if (recipeGroupUl.hidden) {
           recipeGroupUl.hidden = false;
           recipeGroupShow.textContent = "Hide All";
+          recipeGroupShow.setAttribute("aria-expanded", true);
         } else {
           recipeGroupUl.hidden = true;
           recipeGroupShow.textContent = "Show More";
+          recipeGroupShow.setAttribute("aria-expanded", false);
         }
       });
       for (const recipe of group.recipes) {
@@ -246,6 +249,7 @@ function initApp() {
         const recipeShow = document.createElement("button");
         recipeShow.classList.add("button");
         recipeShow.classList.add("details-button");
+        recipeShow.setAttribute("aria-expanded", false);
         const recipeDiv = document.createElement("div");
         recipeDiv.classList.add("recipe-div");
         const recipeYield = document.createElement("p");
@@ -278,9 +282,11 @@ function initApp() {
           if (recipeDiv.hidden) {
             recipeDiv.hidden = false;
             recipeShow.textContent = "Hide";
+            recipeShow.setAttribute("aria-expanded", true);
           } else {
             recipeDiv.hidden = true;
             recipeShow.textContent = "Details";
+            recipeShow.setAttribute("aria-expanded", false);
           }
 
         });
