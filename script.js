@@ -1,3 +1,13 @@
+// Import Ajv and JSON schema 
+
+import Ajv2020 from "ajv/dist/2020.js";
+import schema from "./recipeGroups.schema.json";
+
+// Initialize validation engine and compile the schema
+
+const ajv = new Ajv2020({ allErrors: true });
+const validateRecipeGroups = ajv.compile(schema);
+
 // Store recipe data and counters outside initApp() to keep
 // Add and Done interactions consistent after Retry.
 
@@ -34,7 +44,13 @@ async function loadRecipes() {
       throw new Error("Failed to load recipes.");
     }
 
-    recipeGroups = await response.json();
+    const parsedJson = await response.json();
+    if (validateRecipeGroups(parsedJson) === false) {
+      console.log(validateRecipeGroups.errors);
+      throw new Error("Invalid data input");
+    }
+
+    recipeGroups = parsedJson;
     loadingErrorMessage.textContent = "";
     loadingErrorButton.hidden = true;
     const loadedRecipes = document.querySelectorAll(".recipe-group-div");
@@ -51,7 +67,7 @@ async function loadRecipes() {
   } catch (error) {
     console.error("Error loading JSON:", error);
     if (document.querySelectorAll(".recipe-group-div").length === 0) {
-      loadingErrorMessage.textContent = "Failed to load recipes, Check your connection and try again.";
+      loadingErrorMessage.textContent = "Unable to load recipes. Please try again or contact your manager if the problem persists.";
     } else {
       loadingErrorMessage.textContent = "Unable to refresh recipes. Your previously loaded recipes are still available. Please try again.";
     }
