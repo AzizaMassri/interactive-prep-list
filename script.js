@@ -124,7 +124,7 @@ function initApp() {
     });
 
     // Create a recipe entry with title and yield inputs.
-    // Move focus to the recipe title when requested.
+    // Move focus to the recipe name when requested.
     // Provide initial ingredient inputs and controls to add more.
 
     function createRecipe(shouldFocus) {
@@ -137,7 +137,7 @@ function initApp() {
       recipeAdd.name = "recipeName";
       recipeAdd.required = true;
       const recipeLabel = document.createElement("label");
-      recipeLabel.textContent = "Recipe Title";
+      recipeLabel.textContent = "Recipe Name";
       recipeAdd.classList.add("recipe");
       recipeDiv.append(recipeLabel);
       recipeLabel.append(recipeAdd);
