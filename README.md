@@ -1,6 +1,6 @@
 # Interactive Prep List
 
-A responsive kitchen management application for organizing daily recipe preparation, tracking completion, and adding recipe groups as prep needs change. It is designed for professional kitchens that rely on traditional prep lists.
+A responsive kitchen prep list for managing recipes and tracking daily preparation progress.
 
 **[Launch the live application](https://interactive-prep-list.vercel.app/)**
 
@@ -9,14 +9,15 @@ A responsive kitchen management application for organizing daily recipe preparat
 - Expand recipe groups and view recipe yields, ingredients, quantities, and units.
 - Mark recipes complete and track individual, group, and overall progress.
 - Add groups with multiple recipes and ingredients using a validated form.
+- Delete recipes or entire groups with confirmation.
 - Preserve form inputs after invalid submissions and reset the form after successful submissions.
 - Retry failed data loads without losing previously displayed recipes.
 
-**Current limitation:** Recipe additions and completion progress are stored in memory only. Reloading the page or successfully retrying a data load restores the original JSON data.
+**Current limitation:** Additions, deletions, and completion progress reset on reload or successful Retry.
 
 ## Getting started
 
-Use the live application without installing anything. Select **Show More** to expand a group, **Details** to view a recipe, and **Done** to mark it complete. Use the **Add a Recipe** form to create new groups.
+Use the live application without installing anything. Select **Show More** to expand a group, **Details** to view a recipe, and **Done** to mark it complete. Use the **Add a Recipe** form to create new groups. Use **Delete Recipe** or **Delete Group** to remove items.
 
 To run locally, clone or download the repository, install Node.js and npm, and run these commands from the project folder:
 
@@ -36,7 +37,7 @@ Opening `index.html` directly is not supported by the module-based setup.
 
 ## Demos
 
-Both demos show the core workflow. They predate the accessibility and validation updates, so some labels and styling may differ from the live application.
+These demos predate the accessibility, validation, and deletion updates.
 
 ### Desktop
 
@@ -56,27 +57,28 @@ Both demos show the core workflow. They predate the accessibility and validation
 
 ## Accessibility
 
-- Associated form and checkbox labels, descriptive button names, and synchronized `aria-expanded` states.
+- Associated form and checkbox labels, descriptive button names (including delete controls), and synchronized `aria-expanded` states.
 - Visible keyboard focus, improved color contrast, and focus management after completion or field creation.
 - Live announcements for counter updates and loading errors, plus text-based completion indicators.
 
-Manually tested using keyboard navigation, Chrome DevTools, and Windows Narrator. Detailed results and unresolved observations are recorded in [plan.md](plan.md). This is not a formal WCAG compliance audit.
+Earlier accessibility testing used keyboard navigation, Chrome DevTools, and Windows Narrator. See [plan.md](plan.md) for results and limitations. This is not a formal WCAG audit.
 
 ## Deployment and testing
 
-The application is hosted on Vercel using Vite’s `dist` build output. Production deployments use `main`. Local production preview and live smoke tests passed, including recipe loading, toggles, completion, valid and invalid submissions, and console checks.
+Hosted on Vercel with automatic production deployments from `main`. Local production preview, deletion regression tests, and live smoke tests passed. Detailed test cases are in [plan.md](plan.md).
 
 ## Future improvements
 
-- Add local storage so completion progress and user-entered recipes persist across page visits.
-- Add a way to edit or remove recipe groups and recipes after they have been created.
+- Add local storage so completion progress, additions, and deletions persist across page visits.
+- Add a way to edit recipe groups and recipes after they have been created.
+- Manage keyboard focus after deletion.
 - Add field-specific browser validation messages and accessible, user-facing schema validation feedback.
 
 ## Project files
 
 - `index.html`: Page structure and links to the stylesheet and script.
 - `style.css`: Responsive styling for the layout, counter, recipe groups, buttons, and form.
-- `script.js`: Loads recipe data, renders groups and recipes, handles completion and form interactions, and manages loading errors and retries.
+- `script.js`: Recipe loading, rendering, completion, deletion, and form handling.
 - `public/recipeGroups.json`: Stores the initial recipe groups, recipes, yields, and ingredient details.
 - `recipeGroups.schema.json`: Defines the required recipe data structure, types, and allowed units.
 - `package.json` and `package-lock.json`: Define dependencies, scripts, and locked dependency versions.
