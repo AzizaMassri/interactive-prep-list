@@ -74,6 +74,20 @@ div {
   -webkit-text-fill-color: #000000;
 }
 
+.heading-row .delete {
+  border: 2px solid #C81E3A;
+  align-self: center;
+}
+.heading-row h2,
+.heading-row h3 {
+  margin-bottom: 4px;
+}
+
+.heading-row {
+  display: flex;
+  flex-direction: column;
+}
+
 .button:hover,
 .button:focus-visible {
   background-color: #FFE4E8;
@@ -155,5 +169,14 @@ label {
   .button {
     align-self: flex-start;
     margin: 8px 0;
+  }
+
+  .heading-row {
+    flex-direction: row;
+     gap: 24px;
+  }
+  .heading-row h2,
+  .heading-row h3 {
+    margin-bottom: revert;
   }
 }
