@@ -49,16 +49,22 @@
                     "type": "string",
                     "enum": [
                       "g",
-                      "ml",
-                      "each",
-                      "slices",
-                      "patties",
-                      "tsp",
-                      "tbsp",
                       "kg",
+                      "ml",
+                      "L",
                       "oz",
                       "lb",
-                      "L"
+                      "c",
+                      "pt",
+                      "qt",
+                      "gal",
+                      "tsp",
+                      "tbsp",
+                      "ea",
+                      "bu",
+                      "head",
+                      "cs",
+                      "dz"
                     ]
                   }
                 },

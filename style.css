@@ -103,7 +103,8 @@ label {
   padding: 0 8px 8px 8px;
 }
 
-.recipe-form input {
+.recipe-form input,
+.recipe-form select {
   margin: 4px 0;
   padding: 4px;
   border-radius: 5px;
@@ -111,6 +112,10 @@ label {
   font-family: "Inter", sans-serif;
   font-style: italic;
   border: 1px solid #636363;
+}
+
+.recipe-form select {
+  padding: 4px 11px;
 }
 
 .recipe-entry:not(:first-of-type) {

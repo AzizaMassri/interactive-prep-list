@@ -71,7 +71,7 @@
           {
             "name": "English Muffins",
             "quantity": 20,
-            "unit": "each"
+            "unit": "ea"
           },
           {
             "name": "Butter",
@@ -88,7 +88,7 @@
           {
             "name": "Eggs",
             "quantity": 20,
-            "unit": "each"
+            "unit": "ea"
           },
           {
             "name": "Vinegar",
@@ -120,9 +120,9 @@
         "completed": false,
         "ingredients": [
           {
-            "name": "Bacon",
+            "name": "Bacon Slices",
             "quantity": 40,
-            "unit": "slices"
+            "unit": "ea"
           }
         ]
       }
@@ -139,7 +139,7 @@
           {
             "name": "Eggs",
             "quantity": 40,
-            "unit": "each"
+            "unit": "ea"
           },
           {
             "name": "Milk",
@@ -215,9 +215,9 @@
         "completed": false,
         "ingredients": [
           {
-            "name": "Bread",
+            "name": "Bread Slices",
             "quantity": 20,
-            "unit": "slices"
+            "unit": "ea"
           },
           {
             "name": "Butter",
@@ -269,7 +269,7 @@
           {
             "name": "Bay Leaves",
             "quantity": 5,
-            "unit": "each"
+            "unit": "ea"
           }
         ]
       },
@@ -281,12 +281,12 @@
           {
             "name": "Eggs",
             "quantity": 40,
-            "unit": "each"
+            "unit": "ea"
           }
         ]
       },
       {
-        "recipe": "Hashbrowns",
+        "recipe": "Hash Browns",
         "yield": "20 Servings",
         "completed": false,
         "ingredients": [
@@ -325,9 +325,9 @@
         "completed": false,
         "ingredients": [
           {
-            "name": "Bread",
+            "name": "Bread Slices",
             "quantity": 20,
-            "unit": "slices"
+            "unit": "ea"
           },
           {
             "name": "Butter",
@@ -337,7 +337,7 @@
         ]
       },
       {
-        "recipe": "Hashbrowns",
+        "recipe": "Hash Browns",
         "yield": "20 Servings",
         "completed": false,
         "ingredients": [
@@ -354,21 +354,21 @@
         "completed": false,
         "ingredients": [
           {
-            "name": "Bacon",
+            "name": "Bacon Slices",
             "quantity": 40,
-            "unit": "slices"
+            "unit": "ea"
           }
         ]
       },
       {
-        "recipe": "Sausage Patties",
+        "recipe": "Sausage",
         "yield": "20 Servings",
         "completed": false,
         "ingredients": [
           {
-            "name": "Sausage",
+            "name": "Sausage Patties",
             "quantity": 20,
-            "unit": "patties"
+            "unit": "ea"
           }
         ]
       }
