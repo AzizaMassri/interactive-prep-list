@@ -1,32 +1,42 @@
 # Interactive Prep List
 
-A kitchen management resource for tracking recipe preparation and completion. It's designed for professional kitchens that rely on traditional methods to organize daily prep.
+A responsive kitchen management application for organizing daily recipe preparation, tracking completion, and adding recipe groups as prep needs change. It is designed for professional kitchens that rely on traditional prep lists.
 
-## The problem
+**[Launch the live application](https://interactive-prep-list.vercel.app/)**
 
-This tool helps reduce confusion about which recipes need to be prepared for a day's service while allowing kitchen employees to track what has been completed. Employees can also add recipe groups and recipes as their prep needs change during a session.
+## Features
 
-## How to run it
+- Expand recipe groups and view recipe yields, ingredients, quantities, and units.
+- Mark recipes complete and track individual, group, and overall progress.
+- Add groups with multiple recipes and ingredients using a validated form.
+- Preserve form inputs after invalid submissions and reset the form after successful submissions.
+- Retry failed data loads without losing previously displayed recipes.
 
-You need nothing installed to use the live version.
+**Current limitation:** Recipe additions and completion progress are stored in memory only. Reloading the page or successfully retrying a data load restores the original JSON data.
 
-1. Open the [live page](https://azizamassri.github.io/interactive-prep-list/).
-2. The page displays a completion counter, recipe groups, and an **Add a Recipe** form.
-3. Select **Show More** to expand a recipe group and view its individual recipes.
-4. Select **Details** on a recipe to view its yield, ingredients, quantities, and units.
-5. Check **Done** to complete a recipe. Its name turns grey, its details and checkbox are hidden, and the completion counter increases. When every recipe in a group is complete, the group heading turns grey and displays “is complete.”
-6. To add a group, enter a **Recipe Group** name in the form. Fill in the recipe title, yield, and ingredient details. Use **Add a New Ingredient** and **Add a New Recipe** as needed, then select **Add Recipe Group**.
-7. The new group appears above the form. Its recipes can be expanded and marked complete just like the original recipes, and the total recipe count updates.
+## Getting started
 
-**Note:** New recipes and completion progress are stored only for the current session. Reloading the page or successfully retrying a data load restores the recipes from `recipeGroups.json`; it does not save your additions or completion status.
+Use the live application without installing anything. Select **Show More** to expand a group, **Details** to view a recipe, and **Done** to mark it complete. Use the **Add a Recipe** form to create new groups.
 
-If the initial recipe load fails, an error message and **Retry** button appear. If a later refresh fails, the previously displayed recipes remain available while you retry.
+To run locally, clone or download the repository, install Node.js and npm, and run these commands from the project folder:
 
-To run a local copy, clone or download the repository and serve the project folder using a local development server. The JSON data is loaded with `fetch()`, so opening `index.html` directly as a local file may not work.
+```bash
+npm install
+npm run dev
+```
 
-## Demo
+Open the local URL printed by Vite. To build and preview the production version:
 
-The demos were recorded before the accessibility updates and may show older button names and styling. Both demos show the same workflow: expanding recipe groups, viewing recipe details, marking recipes complete, and adding a new group with multiple recipes and ingredients. The desktop recording also shows collapsing a completed group.
+```bash
+npm run build
+npm run preview
+```
+
+Opening `index.html` directly is not supported by the module-based setup.
+
+## Demos
+
+Both demos show the core workflow. They predate the accessibility and validation updates, so some labels and styling may differ from the live application.
 
 ### Desktop
 
@@ -36,55 +46,43 @@ The demos were recorded before the accessibility updates and may show older butt
 
 ![Mobile demo of the Interactive Prep List](assets/mobile_prep_list.gif)
 
-## What it looks like when it works
+## Technical implementation
 
-For example, on the live page:
-
-1. Expand **Berry Pancakes** using **Show More**.
-2. Open **Details** and mark **Pancakes**, **Strawberry Topping**, and **Whipped Topping** as **Done**.
-3. Expand **Breakfast Sandwich** and open **Details** for **Toasted English Muffins**.
-
-The completion counter should show **3/20 recipes completed**. The completed recipes should be grey and display Done, and the grey group heading should read **Berry Pancakes is complete**, while Toasted English Muffins should display its yield and ingredients.
-
-You can also use the form to add a group such as **Chicken and Waffles**, with recipes such as **Breaded Chicken Filets** and **Buttermilk Waffles**. Adding two recipes increases the total from 20 to 22; marking one Done increases the completed count by one.
-
-## How I built it
-
-- Built with JavaScript, HTML, and CSS, starting in CodePen and continuing in VS Code and GitHub, with deployment through GitHub Pages.
-- Stored the invented recipe data in `recipeGroups.json` and loaded it using the Fetch API.
-- Used nested arrays and objects, loops, DOM manipulation, functions, and event listeners to display expandable recipe groups and details.
-- Added checkboxes and a completion counter to track progress across recipes and groups.
-- Built an **Add a Recipe** form that accepts new groups, multiple recipes, yields, ingredients, quantities, and units. New groups are displayed using the same rendering function as the JSON-loaded groups.
-- Added error handling and a **Retry** button for failed data loads, preserving previously displayed recipes when a refresh fails.
-- Fixed duplicate elements and inconsistent counter updates after retrying by reusing the form and sharing the counter variables across event listeners.
-- Styled the interface for mobile and desktop screens.
-- **AI use:** I used ChatGPT, configured as a personalized coding tutor called My Code Coach, for explanations, hints, and troubleshooting throughout development. Topics included nested arrays and objects, nested loops, DOM manipulation, event listeners, recipe completion logic, counters, loading data from JSON, error handling, form creation, and debugging Retry behavior. I also received guidance on CSS styling, code cleanup, accessibility attributes, keyboard focus management, and screen reader testing. I implemented and tested the JavaScript and CSS myself. AI also assisted with preparing the demo GIFs and updating this README.
+- **HTML, CSS, and JavaScript:** Responsive interface, dynamic DOM rendering, event handling, nested data structures, and shared completion counters.
+- **Fetch API and JSON:** Load sample recipe data from a separate file with error handling and retry support.
+- **Reusable rendering:** Display initial and user-added recipe groups through the same rendering function.
+- **Ajv and JSON Schema:** Validate loaded data and new groups, enforce required fields and positive quantities, and populate measurement dropdowns from the schema.
+- **Vite, Git, and GitHub:** Local development, production builds, and version control. Development began in CodePen and continued in VS Code.
 
 ## Accessibility
 
-- Associated labels with form inputs and completion checkboxes, and added form input names.
-- Added visible keyboard focus styling and improved color contrast.
-- Managed keyboard focus after recipe completion and when adding recipe or ingredient fields.
-- Added descriptive accessible names (`aria-label`) and synchronized expanded states (`aria-expanded`) to recipe toggle buttons.
-- Renamed form buttons to clarify their actions.
-- Added polite live announcements for completion counter changes and assertive announcements for loading errors. The error paragraph remains present and is cleared after successful loading.
-- Added text-based group completion indicators so completion does not rely on color alone.
+- Associated form and checkbox labels, descriptive button names, and synchronized `aria-expanded` states.
+- Visible keyboard focus, improved color contrast, and focus management after completion or field creation.
+- Live announcements for counter updates and loading errors, plus text-based completion indicators.
 
-Manual testing with Windows Narrator in Google Chrome confirmed recipe toggle names and states, recipe details and checkbox readability, completion counter announcements, focus movement, group completion heading readability, form labels and values, newly added field announcements, and the automatic initial loading error announcement. DevTools testing also verified live region attributes and error message updates during failed loads and retries.
+Manually tested using keyboard navigation, Chrome DevTools, and Windows Narrator. Detailed results and unresolved observations are recorded in [plan.md](plan.md). This is not a formal WCAG compliance audit.
 
-Testing observations: Narrator reported zero minimum and maximum values for the numeric yield input, although entered values were readable. It also announced the page title and browser once when adding an ingredient; subsequent attempts did not reproduce this. The causes remain unconfirmed. These tests are not a formal WCAG compliance audit.
+## Deployment and testing
 
-## What I would change next
+The application is hosted on Vercel using Vite’s `dist` build output. Production deployments use `main`. Local production preview and live smoke tests passed, including recipe loading, toggles, completion, valid and invalid submissions, and console checks.
+
+## Future improvements
 
 - Add local storage so completion progress and user-entered recipes persist across page visits.
 - Add a way to edit or remove recipe groups and recipes after they have been created.
-- Add input validation, including appropriate numeric input limits.
+- Add field-specific browser validation messages and accessible, user-facing schema validation feedback.
 
-## Files
+## Project files
 
 - `index.html`: Page structure and links to the stylesheet and script.
 - `style.css`: Responsive styling for the layout, counter, recipe groups, buttons, and form.
 - `script.js`: Loads recipe data, renders groups and recipes, handles completion and form interactions, and manages loading errors and retries.
-- `recipeGroups.json`: Stores the initial recipe groups, recipes, yields, and ingredient details.
+- `public/recipeGroups.json`: Stores the initial recipe groups, recipes, yields, and ingredient details.
+- `recipeGroups.schema.json`: Defines the required recipe data structure, types, and allowed units.
+- `package.json` and `package-lock.json`: Define dependencies, scripts, and locked dependency versions.
 - `plan.md`: Capstone plan, implementation notes, test cases, and pseudocode.
 - `assets/`: Mobile and desktop demo GIFs and other project assets.
+
+## AI use
+
+I used two ChatGPT projects (My Code Coach and Independent Code Coach) for explanations, hints, and troubleshooting related to JavaScript, CSS, accessibility, schema validation, Vite, Git, and Vercel, along with assistance preparing demo GIFs and documentation. I independently implemented the JavaScript and CSS, made development decisions, and manually tested functionality and accessibility.
