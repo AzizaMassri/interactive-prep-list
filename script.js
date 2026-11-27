@@ -304,8 +304,15 @@ function initApp() {
   function renderGroup(group) {
     const recipeGroupDiv = document.createElement("div");
     recipeGroupDiv.classList.add("recipe-group-div");
+    const groupHeadingDiv = document.createElement("div");
+    groupHeadingDiv.classList.add("heading-row");
     const recipeGroupH2 = document.createElement("h2");
     recipeGroupH2.classList.add("recipe-group-h2");
+    const recipeGroupDelete = document.createElement("button");
+    recipeGroupDelete.classList.add("delete");
+    recipeGroupDelete.classList.add("button");
+    recipeGroupDelete.textContent = "Delete Group";
+    recipeGroupDelete.setAttribute("aria-label", `Delete Group: ${group.group}`);
     const recipeGroupShow = document.createElement("button");
     recipeGroupShow.classList.add("button");
     recipeGroupShow.setAttribute("aria-expanded", false);
@@ -316,7 +323,9 @@ function initApp() {
     recipeGroupShow.textContent = "Show More";
     recipeGroupShow.setAttribute("aria-label", `Show More ${group.group}`);
     recipeForm.before(recipeGroupDiv);
-    recipeGroupDiv.append(recipeGroupH2);
+    recipeGroupDiv.append(groupHeadingDiv);
+    groupHeadingDiv.append(recipeGroupH2);
+    groupHeadingDiv.append(recipeGroupDelete);
     recipeGroupDiv.append(recipeGroupShow);
     recipeGroupDiv.append(recipeGroupUl);
     recipeGroupUl.hidden = true;
@@ -332,6 +341,23 @@ function initApp() {
         recipeGroupShow.setAttribute("aria-expanded", false);
         recipeGroupShow.setAttribute("aria-label", `Show More ${group.group}`);
       }
+    })
+    recipeGroupDelete.addEventListener("click", function () {
+      const groupIndex = recipeGroups.indexOf(group);
+      const groupDeleteConfirmed = confirm(`Do you want to delete the ${group.group} recipe group? All of its recipes will be deleted.`);
+      if (groupDeleteConfirmed) {
+        if (groupIndex !== -1) {
+          recipeGroups.splice(groupIndex, 1);
+          recipeGroupDiv.remove();
+          totalRecipes = totalRecipes - group.recipes.length;
+          for (const recipe of group.recipes) {
+            if (recipe.completed) {
+              totalCounter = totalCounter - 1;
+            }
+          }
+          counterText.textContent = `${totalCounter}/${totalRecipes} recipes completed`;
+        }
+      }
     });
 
     // Iterate through the group's recipes and create individual recipe elements.
@@ -342,8 +368,15 @@ function initApp() {
     for (const recipe of group.recipes) {
       const recipeItem = document.createElement("li");
       recipeItem.classList.add("recipe-items");
+      const recipeHeadingDiv = document.createElement("div");
+      recipeHeadingDiv.classList.add("heading-row");
       const recipeName = document.createElement("h3");
       recipeName.classList.add("recipe-name");
+      const recipeDelete = document.createElement("button");
+      recipeDelete.classList.add("delete");
+      recipeDelete.classList.add("button");
+      recipeDelete.textContent = "Delete Recipe";
+      recipeDelete.setAttribute("aria-label", `Delete Recipe: ${recipe.recipe}`);
       const recipeShow = document.createElement("button");
       recipeShow.classList.add("button");
       recipeShow.classList.add("details-button");
@@ -369,7 +402,9 @@ function initApp() {
         ingredientList.append(`${ingredient.name} -- ${ingredient.quantity} ${ingredient.unit}`);
       }
       recipeGroupUl.append(recipeItem);
-      recipeItem.append(recipeName);
+      recipeItem.append(recipeHeadingDiv);
+      recipeHeadingDiv.append(recipeName);
+      recipeHeadingDiv.append(recipeDelete);
       recipeItem.append(recipeShow);
       recipeItem.append(recipeDiv);
       recipeDiv.append(recipeYield);
@@ -395,6 +430,33 @@ function initApp() {
           recipeShow.setAttribute("aria-label", `Details ${recipe.recipe}`);
         }
 
+      })
+      recipeDelete.addEventListener("click", function () {
+        const recipeIndex = group.recipes.indexOf(recipe);
+        const recipeDeleteConfirmed = confirm(`Do you want to delete the ${recipe.recipe} recipe?`)
+        if (recipeDeleteConfirmed) {
+          if (recipeIndex !== -1) {
+            group.recipes.splice(recipeIndex, 1);
+            recipeItem.remove();
+            totalRecipes = totalRecipes - 1;
+            if (recipe.completed) {
+              totalCounter = totalCounter - 1;
+              recipeCompleteCounter = recipeCompleteCounter - 1;
+            }
+            counterText.textContent = `${totalCounter}/${totalRecipes} recipes completed`;
+            if (recipeCompleteCounter === group.recipes.length) {
+              recipeGroupH2.style.color = "#636363";
+              recipeGroupH2.textContent = `${group.group} is complete`;
+            }
+            if (group.recipes.length === 0) {
+              const groupIndex = recipeGroups.indexOf(group);
+              if (groupIndex !== -1) {
+                recipeGroups.splice(groupIndex, 1);
+                recipeGroupDiv.remove();
+              }
+            }
+          }
+        }
       });
 
       // Update recipe completion state and visually distinguish completed recipes.
