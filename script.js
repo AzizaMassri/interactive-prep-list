@@ -33,6 +33,7 @@ loadingErrorButton.addEventListener("click", function () {
 });
 
 // Load JSON data and check whether the request succeeds.
+// Validate parsed data against the JSON schema before updating application state.
 // Remove previously rendered elements on success to prevent duplication.
 // Handle loading failures while preserving any previously loaded recipes.
 
@@ -46,7 +47,7 @@ async function loadRecipes() {
 
     const parsedJson = await response.json();
     if (validateRecipeGroups(parsedJson) === false) {
-      console.log(validateRecipeGroups.errors);
+      console.error(validateRecipeGroups.errors);
       throw new Error("Invalid data input");
     }
 
@@ -106,6 +107,7 @@ function initApp() {
     const recipeGroupAdd = document.createElement("input");
     recipeGroupAdd.type = "text";
     recipeGroupAdd.name = "recipeGroup";
+    recipeGroupAdd.required = true;
     const recipeGroupLabel = document.createElement("label");
     recipeGroupLabel.textContent = "Recipe Group";
     recipeForm.append(recipeGroupLabel);
@@ -133,6 +135,7 @@ function initApp() {
       const recipeAdd = document.createElement("input");
       recipeAdd.type = "text";
       recipeAdd.name = "recipeName";
+      recipeAdd.required = true;
       const recipeLabel = document.createElement("label");
       recipeLabel.textContent = "Recipe Title";
       recipeAdd.classList.add("recipe");
@@ -145,7 +148,10 @@ function initApp() {
 
       const yieldAdd = document.createElement("input");
       yieldAdd.type = "number";
+      yieldAdd.min = 1;
+      yieldAdd.step = 1;
       yieldAdd.name = "recipeYield";
+      yieldAdd.required = true;
       const yieldLabel = document.createElement("label");
       yieldLabel.textContent = "Yield";
       yieldAdd.classList.add("yield");
@@ -178,6 +184,7 @@ function initApp() {
       const ingredientAdd = document.createElement("input");
       ingredientAdd.type = "text";
       ingredientAdd.name = "recipeIngredient";
+      ingredientAdd.required = true;
       const ingredientLabel = document.createElement("label");
       ingredientLabel.textContent = "Ingredient";
       ingredientAdd.classList.add("ingredient");
@@ -190,25 +197,42 @@ function initApp() {
 
       const quantityAdd = document.createElement("input");
       quantityAdd.type = "number";
+      quantityAdd.min = 0;
+      quantityAdd.step = "any";
       quantityAdd.name = "ingredientQuantity";
+      quantityAdd.required = true;
       const quantityLabel = document.createElement("label");
       quantityLabel.textContent = "Quantity";
       quantityAdd.classList.add("quantity");
       detailsDiv.append(quantityLabel);
       quantityLabel.append(quantityAdd);
 
-      const unitAdd = document.createElement("input");
-      unitAdd.type = "text";
+      const unitAdd = document.createElement("select");
+      const unitOptions = schema.items.properties.recipes.items.properties.ingredients.items.properties.unit.enum;
+      const placeholder = document.createElement("option");
+      placeholder.value = "";
+      placeholder.textContent = "Choose a measurement";
+      unitAdd.classList.add("unit");
       unitAdd.name = "ingredientUnit";
+      unitAdd.required = true;
       const unitLabel = document.createElement("label");
       unitLabel.textContent = "Unit";
-      unitAdd.classList.add("unit");
+
       detailsDiv.append(unitLabel);
       unitLabel.append(unitAdd);
+      unitAdd.append(placeholder);
+
+      for (const unit of unitOptions) {
+        const option = document.createElement("option");
+        option.value = unit;
+        option.textContent = unit;
+        unitAdd.append(option);
+      }
     }
 
     // Create the Add New Recipe Group button and event listener.
-    // Collect form values into nested objects and arrays.
+    // Validate form inputs and exit early if validation fails.
+    // Collect valid form values into nested objects and arrays.
     // Add the new group to recipeGroups, update counters, and render the group.
 
     const addNewDiv = document.createElement("div");
@@ -220,8 +244,16 @@ function initApp() {
     addNewDiv.append(addNew);
 
     addNew.addEventListener("click", function () {
+      const isValidRecipe = recipeForm.reportValidity();
+      if (isValidRecipe === false) {
+        console.error("Browser validation failed");
+        return;
+      }
+      console.log("Browser validation passed");
+
       const newGroup = { group: recipeGroupAdd.value, recipes: [] };
       const recipeEntries = recipeForm.querySelectorAll(".recipe-entry");
+
       for (const entry of recipeEntries) {
         const recipeNames = entry.querySelector(".recipe").value;
         const recipeYield = `${entry.querySelector(".yield").value} Servings`;
@@ -229,12 +261,16 @@ function initApp() {
         const ingredients = entry.querySelectorAll(".ingredient-entry");
         for (const ingredientEntry of ingredients) {
           const ingredient = ingredientEntry.querySelector(".ingredient").value;
-          const quantity = ingredientEntry.querySelector(".quantity").value;
+          const quantity = ingredientEntry.querySelector(".quantity").valueAsNumber;
           const unit = ingredientEntry.querySelector(".unit").value;
           const newDetails = { name: ingredient, quantity: quantity, unit: unit };
           newRecipe.ingredients.push(newDetails);
         }
         newGroup.recipes.push(newRecipe);
+      }
+      if (validateRecipeGroups([newGroup]) === false) {
+        console.error(validateRecipeGroups.errors);
+        return;
       }
       recipeGroups.push(newGroup);
       totalRecipes += newGroup.recipes.length;
